@@ -1,0 +1,157 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+==============================================================================
+Крок 5. Chunking: fixed-size vs semantic
+==============================================================================
+Узято 30 статей із найдовшими анотаціями: 299-328 слів (медіана по корпусу 151)
+
+FIXED (size=60, overlap=15): чанків 210, слів у чанку: сер. 57.0 (min 29, max 60), починаються посеред речення 146 (70%), обриваються посеред речення 170 (81%)
+SEMANTIC (max_words=60):        чанків 203, слів у чанку: сер. 45.7 (min 10, max 143), починаються посеред речення 0 (0%), обриваються посеред речення 0 (0%)
+
+Вплив overlap на кількість чанків (fixed-size, ті самі 30 статей):
+  overlap= 0 слів -> чанків 176, закодовано слів 9275 (1.00x від обсягу тексту)
+  overlap=15 слів -> чанків 210, закодовано слів 11975 (1.29x від обсягу тексту)
+  overlap=30 слів -> чанків 296, закодовано слів 17255 (1.86x від обсягу тексту)
+  overlap=45 слів -> чанків 543, закодовано слів 32360 (3.49x від обсягу тексту)
+
+Приклад: перші два чанки однієї статті кожною стратегією
+
+  [fixed] The ANTS problem
+    чанк 0: "We introduce the Ants Nearby Treasure Search (ANTS) problem, which models natural cooperative foraging behavior such as that performed by ants around ..."
+      60 слів | обривається посеред речення
+    чанк 1: "The treasure is placed at a target location by an adversary and the agents' goal is to find it as fast as possible as a function of both k and D, wher..."
+      60 слів | обривається посеред речення
+
+  [semantic] The ANTS problem
+    чанк 0: "We introduce the Ants Nearby Treasure Search (ANTS) problem, which models natural cooperative foraging behavior such as that performed by ants around ..."
+      45 слів | межі речень збережені
+    чанк 1: "The treasure is placed at a target location by an adversary and the agents' goal is to find it as fast as possible as a function of both k and D, wher..."
+      56 слів | межі речень збережені
+
+==============================================================================
+Створення індексів і завантаження чанків
+==============================================================================
+Завантажую модель allenai/specter2_base (pooling=cls) ...
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 44354.69it/s]
+  Створюю індекс 'arxiv-chunks-fixed' (dim=768, metric=cosine) ...
+  Індекс 'arxiv-chunks-fixed' готовий.
+  Створюю індекс 'arxiv-chunks-semantic' (dim=768, metric=cosine) ...
+  Індекс 'arxiv-chunks-semantic' готовий.
+Batches:   0%|          | 0/4 [00:00<?, ?it/s]Batches:  25%|██▌       | 1/4 [00:03<00:11,  3.89s/it]Batches:  50%|█████     | 2/4 [00:07<00:07,  3.62s/it]Batches:  75%|███████▌  | 3/4 [00:12<00:04,  4.52s/it]Batches: 100%|██████████| 4/4 [00:13<00:00,  3.04s/it]Batches: 100%|██████████| 4/4 [00:13<00:00,  3.42s/it]
+Upsert -> arxiv-chunks-fixed:   0%|          | 0/3 [00:00<?, ? батч/s]Upsert -> arxiv-chunks-fixed:  33%|███▎      | 1/3 [00:02<00:04,  2.30s/ батч]Upsert -> arxiv-chunks-fixed:  67%|██████▋   | 2/3 [00:03<00:01,  1.46s/ батч]Upsert -> arxiv-chunks-fixed: 100%|██████████| 3/3 [00:03<00:00,  1.01s/ батч]Upsert -> arxiv-chunks-fixed: 100%|██████████| 3/3 [00:03<00:00,  1.21s/ батч]
+  Завантажено 210 чанків у arxiv-chunks-fixed
+Batches:   0%|          | 0/4 [00:00<?, ?it/s]Batches:  25%|██▌       | 1/4 [00:09<00:28,  9.47s/it]Batches:  50%|█████     | 2/4 [00:14<00:13,  6.93s/it]Batches:  75%|███████▌  | 3/4 [00:17<00:05,  5.23s/it]Batches: 100%|██████████| 4/4 [00:18<00:00,  3.29s/it]Batches: 100%|██████████| 4/4 [00:18<00:00,  4.53s/it]
+Upsert -> arxiv-chunks-semantic:   0%|          | 0/3 [00:00<?, ? батч/s]Upsert -> arxiv-chunks-semantic:  33%|███▎      | 1/3 [00:02<00:04,  2.23s/ батч]Upsert -> arxiv-chunks-semantic:  67%|██████▋   | 2/3 [00:02<00:01,  1.37s/ батч]Upsert -> arxiv-chunks-semantic: 100%|██████████| 3/3 [00:03<00:00,  1.13 батч/s]Upsert -> arxiv-chunks-semantic: 100%|██████████| 3/3 [00:03<00:00,  1.10s/ батч]
+  Завантажено 203 чанків у arxiv-chunks-semantic
+
+==============================================================================
+Пошук по чанках: порівняння стратегій
+==============================================================================
+
+Запит: "how the proposed method was evaluated on benchmark datasets"
+
+  --- arxiv-chunks-fixed ---
+  1. [0.9200] Classification of Seeds using Domain Randomization on Self-Supervised 
+     чанк 5/7 | cs.CV | 2021
+     "large volume of test subjects. As part of the work, synthetic image datasets of five different types of seed images namely, canola, rough rice, sorghum, soy and wheat are applied t..."
+  2. [0.9141] Approach to Predicting News -- A Precise Multi-LSTM Network With BERT
+     чанк 3/7 | cs.CL | 2022
+     "we found out that the pre-processing of categorizing the news is still done by human labor. However, human labor may cause mistakes and cannot work for a long time. The growing dem..."
+  3. [0.9117] Classification of Seeds using Domain Randomization on Self-Supervised 
+     чанк 2/7 | cs.CV | 2021
+     "attributes of a seed such as size, shape, area, color and texture to identify the seed type, a process that is tedious and labor-intensive. Advances in the areas of computer vision..."
+  4. [0.9047] Approach to Predicting News -- A Precise Multi-LSTM Network With BERT
+     чанк 4/7 | cs.CL | 2022
+     "do as good as humans or even better, using machines can reduce humans' burden and cut down costs. Therefore, in this work, we build a predictive model to classify the category of n..."
+  5. [0.9042] Classification of Seeds using Domain Randomization on Self-Supervised 
+     чанк 1/7 | cs.CV | 2021
+     "The first step toward Seed Phenotyping i.e. the comprehensive assessment of complex seed traits such as growth, development, tolerance, resistance, ecology, yield, and the measurem..."
+
+  --- arxiv-chunks-semantic ---
+  1. [0.9192] Classification of Seeds using Domain Randomization on Self-Supervised 
+     чанк 5/6 | cs.CV | 2021
+     "As part of the work, synthetic image datasets of five different types of seed images namely, canola, rough rice, sorghum, soy and wheat are applied to three different self-supervis..."
+  2. [0.9104] Approach to Predicting News -- A Precise Multi-LSTM Network With BERT
+     чанк 3/6 | cs.CL | 2022
+     "However, human labor may cause mistakes and cannot work for a long time. The growing demands for automatic machines in the near decades show that while the machine can do as good a..."
+  3. [0.9090] Classification of Seeds using Domain Randomization on Self-Supervised 
+     чанк 2/6 | cs.CV | 2021
+     "Generally, a plant re-searcher inspects the visual attributes of a seed such as size, shape, area, color and texture to identify the seed type, a process that is tedious and labor-..."
+  4. [0.9085] Approach to Predicting News -- A Precise Multi-LSTM Network With BERT
+     чанк 2/6 | cs.CL | 2022
+     "It also shows that the "made-up news" has caused a great deal of confusion in Taiwanese society and has serious impacts on global stability. Although there are several applications..."
+  5. [0.9045] Approach to Predicting News -- A Precise Multi-LSTM Network With BERT
+     чанк 6/6 | cs.CL | 2022
+     "Each document embedding is an input for the final predicting model, which contains two Dense layers and one Activation layer. And each document embedding is transformed into 1 vect..."
+
+Запит: "theoretical guarantees and convergence proofs"
+
+  --- arxiv-chunks-fixed ---
+  1. [0.8977] From Hopf algebras to rough paths and regularity structures
+     чанк 7/7 | math.RA | 2021
+     "written as a master's thesis supervised by Peter Friz and Sylvie Paycha and submitted to TU Berlin on July 29 2016. As of 2021, it does not provide novel research material, but can..."
+  2. [0.8971] Combinatorial geometry of neural codes, neural data analysis, and neur
+     чанк 7/7 | q-bio.NC | 2022
+     "focus on combinatorial threshold linear networks (CTLNs), which are TLNs defined from a directed graph. We prove that if the graph of a CTLN is a directed acyclic graph, then all t..."
+  3. [0.8957] The ANTS problem
+     чанк 4/7 | cs.DC | 2017
+     "analysis aims at establishing connections between the time complexity and the initial knowledge held by agents (e.g., regarding their total number k), as they commence the search...."
+  4. [0.8942] Combinatorial geometry of neural codes, neural data analysis, and neur
+     чанк 5/7 | q-bio.NC | 2022
+     "nodes and the Radon rank. We apply these to analyze calcium imaging data from a larval zebrafish. In Chapter 7, we explore the underlying rank in more detail, establish connections..."
+  5. [0.8904] Combinatorial geometry of neural codes, neural data analysis, and neur
+     чанк 1/7 | q-bio.NC | 2022
+     "This dissertation explores applications of discrete geometry in mathematical neuroscience. We begin with convex neural codes, which model the activity of hippocampal place cells an..."
+
+  --- arxiv-chunks-semantic ---
+  1. [0.9023] Combinatorial geometry of neural codes, neural data analysis, and neur
+     чанк 7/7 | q-bio.NC | 2022
+     "We prove that if the graph of a CTLN is a directed acyclic graph, then all trajectories of the CTLN approach a fixed point...."
+  2. [0.9008] Combinatorial geometry of neural codes, neural data analysis, and neur
+     чанк 5/7 | q-bio.NC | 2022
+     "In Chapter 7, we explore the underlying rank in more detail, establish connections to oriented matroid theory, and show that computing underlying rank is also NP-hard. Finally, we..."
+  3. [0.8985] From Hopf algebras to rough paths and regularity structures
+     чанк 7/7 | math.RA | 2021
+     "This work was written as a master's thesis supervised by Peter Friz and Sylvie Paycha and submitted to TU Berlin on July 29 2016. As of 2021, it does not provide novel research mat..."
+  4. [0.8913] A Probabilistic Characterization of the Dominance Order on Partitions
+     чанк 3/7 | math.CO | 2015
+     "Given non-negative integers $j$ and $t$, let $P(\nu,j,t)$ be the probability that the total number of balls in $F$ is $j$ and that no row of $F$ contains more that $t$ balls. We sh..."
+  5. [0.8906] Combinatorial geometry of neural codes, neural data analysis, and neur
+     чанк 1/7 | q-bio.NC | 2022
+     "This dissertation explores applications of discrete geometry in mathematical neuroscience. We begin with convex neural codes, which model the activity of hippocampal place cells an..."
+
+Запит: "limitations and future work"
+
+  --- arxiv-chunks-fixed ---
+  1. [0.8964] Classification of Seeds using Domain Randomization on Self-Supervised 
+     чанк 7/7 | cs.CV | 2021
+     "frameworks in question, achieves an accuracy of 77% on the test dataset which is only ~13% less than the accuracy of 90% achieved by ResNet-50 trained on 100% of the labels...."
+  2. [0.8963] Classification of Seeds using Domain Randomization on Self-Supervised 
+     чанк 6/7 | cs.CV | 2021
+     "Latent (BYOL) where ResNet-50 is used as the backbone in each of the networks. When the self-supervised models are fine-tuned with only 5% of the labels from the synthetic dataset,..."
+  3. [0.8949] Classification of Seeds using Domain Randomization on Self-Supervised 
+     чанк 2/7 | cs.CV | 2021
+     "attributes of a seed such as size, shape, area, color and texture to identify the seed type, a process that is tedious and labor-intensive. Advances in the areas of computer vision..."
+  4. [0.8938] Approach to Predicting News -- A Precise Multi-LSTM Network With BERT
+     чанк 3/7 | cs.CL | 2022
+     "we found out that the pre-processing of categorizing the news is still done by human labor. However, human labor may cause mistakes and cannot work for a long time. The growing dem..."
+  5. [0.8905] A geometrical imaging of the real gap between economies of China and t
+     чанк 4/7 | q-fin.GN | 2017
+     "different countries depend on the path that each country passes through and local metric. To address distance between economies of China and of the US we need to know their utility..."
+
+  --- arxiv-chunks-semantic ---
+  1. [0.8988] Classification of Seeds using Domain Randomization on Self-Supervised 
+     чанк 6/6 | cs.CV | 2021
+     "When the self-supervised models are fine-tuned with only 5% of the labels from the synthetic dataset, results show that MoCo, the model that yields the best performance of the self..."
+  2. [0.8967] Approach to Predicting News -- A Precise Multi-LSTM Network With BERT
+     чанк 3/6 | cs.CL | 2022
+     "However, human labor may cause mistakes and cannot work for a long time. The growing demands for automatic machines in the near decades show that while the machine can do as good a..."
+  3. [0.8918] Approach to Predicting News -- A Precise Multi-LSTM Network With BERT
+     чанк 2/6 | cs.CL | 2022
+     "It also shows that the "made-up news" has caused a great deal of confusion in Taiwanese society and has serious impacts on global stability. Although there are several applications..."
+  4. [0.8909] CFRNet: Cycle-Consistent Fixed-Point Training for Real-Time Blind Face
+     чанк 1/7 | cs.CV | 2026
+     "Blind face restoration on consumer devices has to balance image quality against speed and memory...."
+  5. [0.8906] CFRNet: Cycle-Consistent Fixed-Point Training for Real-Time Blind Face
+     чанк 4/7 | cs.CV | 2026
+     "Instead of training the network for one pass and then running it several times by hand, we train it to act as a fixed-point operator, so that applying it again to a restored face d..."

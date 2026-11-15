@@ -1,0 +1,122 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Підключено до індексу 'arxiv-papers': 10000 векторів
+Завантажую модель allenai/specter2_base (pooling=cls) ...
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 49729.89it/s]
+
+==============================================================================
+A. Чистий семантичний пошук (без фільтрів)
+==============================================================================
+Запит: "teaching machines to recognize objects in pictures"
+Жодне слово запиту не є термінологічним: 'pictures' замість 'images',
+'teaching machines' замість 'training models'. Повнотекстовий пошук тут безсилий.
+
+  1. [0.9247] Interpretable Image Recognition with Hierarchical Prototypes
+     cs.CV | 2019 | Hase Peter, Chen Chaofan, Li Oscar, Rudin Cynthia
+     Vision models are interpretable when they classify objects on the basis of features that a person can directly understand. Recently, methods relying on visual feature prototypes have been developed fo...
+  2. [0.9168] A Novel Template-Based Learning Model
+     cs.LG | 2011 | Abolghasemi-Dahaghani Mohammadreza, Didehvar Farzad, Nowroozi Alireza
+     This article presents a model which is capable of learning and abstracting new concepts based on comparing observations and finding the resemblance between the observations. In the model, the new obse...
+  3. [0.9157] Multiple Object Recognition with Visual Attention
+     cs.LG | 2014 | Ba Jimmy, Mnih Volodymyr, Kavukcuoglu Koray
+     We present an attention-based model for recognizing multiple objects in images. The proposed model is a deep recurrent neural network trained with reinforcement learning to attend to the most relevant...
+  4. [0.9120] Building Machines That Learn and Think Like People
+     cs.AI | 2016 | Lake Brenden M., Ullman Tomer D., Tenenbaum Joshua B., Gershman Samuel
+     Recent progress in artificial intelligence (AI) has renewed interest in building systems that learn and think like people. Many advances have come from using deep neural networks trained end-to-end in...
+  5. [0.9111] A Roadmap for the Development of the "SP Machine" for Artificial   Intelligence
+     cs.AI | 2017 | Wolff J Gerard
+     This paper describes a roadmap for the development of the "SP Machine", based on the "SP Theory of Intelligence" and its realisation in the "SP Computer Model". The SP Machine will be developed initia...
+
+==============================================================================
+B. Пошук із фільтрами за метаданими
+==============================================================================
+Запит для обох прикладів: "reinforcement learning agent learns a policy from rewards"
+
+Приклад A -- filter={'category': {'$eq': 'cs.LG'}, 'year': {'$gte': 2022}}  (cs.LG, 2022-2026)
+  1. [0.9455] Optimistic Linear Support and Successor Features as a Basis for Optimal   Policy Transfer
+     cs.LG | 2022 | Alegre Lucas N., Bazzan Ana L. C., da Silva Bruno C.
+     In many real-world applications, reinforcement learning (RL) agents might have to solve multiple tasks, each one typically modeled via a reward function. If reward functions are expressed linearly, an...
+  2. [0.9442] Revisiting the Gumbel-Softmax in MADDPG
+     cs.LG | 2023 | Tilbury Callum Rhys, Christianos Filippos, Albrecht Stefano V.
+     MADDPG is an algorithm in multi-agent reinforcement learning (MARL) that extends the popular single-agent method, DDPG, to multi-agent scenarios. Importantly, DDPG is an algorithm designed for continu...
+  3. [0.9406] Monitored Markov Decision Processes
+     cs.LG | 2024 | Parisi Simone, Mohammedalamen Montaser, Kazemipour Alireza, Taylor Mat
+     In reinforcement learning (RL), an agent learns to perform a task by interacting with an environment and receiving feedback (a numerical reward) for its actions. However, the assumption that rewards a...
+  4. [0.9396] Distributional Successor Features Enable Zero-Shot Policy Optimization
+     cs.LG | 2024 | Zhu Chuning, Wang Xinqi, Han Tyler, Du Simon S., Gupta Abhishek
+     Intelligent agents must be generalists, capable of quickly adapting to various tasks. In reinforcement learning (RL), model-based RL learns a dynamics model of the world, in principle enabling transfe...
+  5. [0.9384] BAMDP Shaping: a Unified Framework for Intrinsic Motivation and Reward   Shaping
+     cs.LG | 2024 | Lidayan Aly, Dennis Michael, Russell Stuart
+     Intrinsic motivation and reward shaping guide reinforcement learning (RL) agents by adding pseudo-rewards, which can lead to useful emergent behaviors. However, they can also encourage counterproducti...
+
+Приклад B -- filter={'year': {'$lt': 2015}}  (будь-яка категорія, до 2015 року)
+  1. [0.9523] Selecting the State-Representation in Reinforcement Learning
+     cs.LG | 2013 | Maillard Odalric-Ambrym, Munos Rémi, Ryabko Daniil
+     The problem of selecting the right state-representation in a reinforcement learning problem is considered. Several models (functions mapping past observations to a finite set) of the observations are...
+  2. [0.9498] A Multiagent Reinforcement Learning Algorithm with Non-linear Dynamics
+     cs.LG | 2014 | Abdallah Sherief, Lesser Victor
+     Several multiagent reinforcement learning (MARL) algorithms have been proposed to optimize agents decisions. Due to the complexity of the problem, the majority of the previously developed MARL algorit...
+  3. [0.9464] Reinforcement Learning via AIXI Approximation
+     cs.LG | 2010 | Veness Joel, Ng Kee Siong, Hutter Marcus, Silver David
+     This paper introduces a principled approach for the design of a scalable general reinforcement learning agent. This approach is based on a direct approximation of AIXI, a Bayesian optimality notion fo...
+  4. [0.9431] Learning from Scarce Experience
+     cs.AI | 2002 | Peshkin Leonid, Shelton Christian R.
+     Searching the space of policies directly for the optimal policy has been one popular method for solving partially observable reinforcement learning problems. Typically, with each change of the target...
+  5. [0.9397] Decision Making Agent Searching for Markov Models in Near-Deterministic   World
+     cs.AI | 2011 | Matuz Gabor, Lorincz Andras
+     Reinforcement learning has solid foundations, but becomes inefficient in partially observed (non-Markovian) environments. Thus, a learning agent -born with a representation and a policy- might wish to...
+
+Порівняння A і B:
+  спільних документів: 0
+  середня схожість A: 0.9417 | B: 0.9463
+  категорії A: ['cs.LG']
+  категорії B: ['cs.AI', 'cs.LG']
+  роки A: [2022, 2023, 2024]
+  роки B: [2002, 2010, 2011, 2013, 2014]
+  Фільтр -- це жорстке обмеження простору пошуку (pre-filter), а не переранжування:
+  кожна видача -- найкраще В МЕЖАХ СВОГО підпростору, тому скори з різних фільтрів
+  не порівнюються між собою як 'релевантність для користувача'. Перетин A і B нульовий
+  за побудовою: умови за роком взаємно виключні.
+  Показово, що середня схожість B не нижча за A, хоча B -- це статті 2002-2014 років:
+  запит сформульований класичною RL-мовою ('agent', 'policy', 'rewards'), і старі
+  роботи описують себе тими самими простими словами, тоді як сучасний cs.LG-зріз
+  вужчий і термінологічніший (MARL, successor features, BAMDP shaping).
+  Висновок: фільтр змінює СКЛАД кандидатів, а не те, як модель міряє схожість.
+
+==============================================================================
+C. Порівняння метрик схожості на локальних ембеддингах
+==============================================================================
+Запит: "neural network for natural language understanding"
+Ембеддинги: (10000, 768), норми в [1.0000, 1.0000], норма запиту 1.0000
+
+Cosine similarity (більше -- краще):
+  1. [+0.9553] paper_953 | cs.CL | 2015 | Natural Language Understanding with Distributed Representation
+  2. [+0.9348] paper_637 | cs.CL | 2014 | Learning Phrase Representations using RNN Encoder-Decoder for   Statis
+  3. [+0.9326] paper_3298 | cs.LG | 2017 | Survey of reasoning using Neural networks
+  4. [+0.9324] paper_1062 | cs.CL | 2019 | Neural Text Generation from Rich Semantic Representations
+  5. [+0.9321] paper_814 | cs.CL | 2017 | Effective Spoken Language Labeling with Deep Recurrent Neural Networks
+
+Dot product (більше -- краще):
+  1. [+0.9553] paper_953 | cs.CL | 2015 | Natural Language Understanding with Distributed Representation
+  2. [+0.9348] paper_637 | cs.CL | 2014 | Learning Phrase Representations using RNN Encoder-Decoder for   Statis
+  3. [+0.9326] paper_3298 | cs.LG | 2017 | Survey of reasoning using Neural networks
+  4. [+0.9324] paper_1062 | cs.CL | 2019 | Neural Text Generation from Rich Semantic Representations
+  5. [+0.9321] paper_814 | cs.CL | 2017 | Effective Spoken Language Labeling with Deep Recurrent Neural Networks
+
+L2 distance (менше -- краще):
+  1. [+0.2990] paper_953 | cs.CL | 2015 | Natural Language Understanding with Distributed Representation
+  2. [+0.3610] paper_637 | cs.CL | 2014 | Learning Phrase Representations using RNN Encoder-Decoder for   Statis
+  3. [+0.3672] paper_3298 | cs.LG | 2017 | Survey of reasoning using Neural networks
+  4. [+0.3677] paper_1062 | cs.CL | 2019 | Neural Text Generation from Rich Semantic Representations
+  5. [+0.3685] paper_814 | cs.CL | 2017 | Effective Spoken Language Labeling with Deep Recurrent Neural Networks
+
+Порівняння списків:
+  cosine vs dot: однаковий порядок = True, спільних 5/5
+  cosine vs L2:  однаковий порядок = True, спільних 5/5
+  максимальне відхилення |cosine - dot| по всьому корпусу: 2.98e-07
+  перевірка тотожності L2^2 = 2 - 2*cos: max|різниця| = 1.13e-06
+
+Контрприклад -- ті самі вектори, помножені на випадковий масштаб 0.5-3.0:
+  dot    top-5: ['paper_1144', 'paper_4309', 'paper_1812', 'paper_1454', 'paper_3424']
+  cosine top-5: ['paper_953', 'paper_637', 'paper_3298', 'paper_1062', 'paper_814']
+  dot зберіг вихідний топ-5: False; cosine зберіг: True
+  Висновок: рівність cosine і dot тримається рівно доти, доки всі вектори одиничні.

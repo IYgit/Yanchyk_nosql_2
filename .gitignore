@@ -1,0 +1,23 @@
+# Секрети
+.env
+
+# Дані та артефакти пайплайну (не комітимо)
+data/
+embeddings/
+arxiv-metadata-oai-snapshot.json
+*.zip
+
+# Віртуальне середовище
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

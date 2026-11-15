@@ -1,0 +1,237 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+
+==============================================================================
+Крок 6. Гібридний пошук BM25 + вектори (RRF)
+==============================================================================
+BM25-індекс: 10000 документів, 1692584 токенів, словник 39845 термінів
+Pinecone 'arxiv-papers': 10000 векторів
+Завантажую модель allenai/specter2_base (pooling=cls) ...
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 49579.24it/s]
+
+==============================================================================
+Запит (точний термін): "BERT fine-tuning"
+==============================================================================
+
+  BM25 (top-5):
+    1. [18.14] BERT-LSH: Reducing Absolute Compute For Attention
+       cs.CL | 2024 | Li Zezheng, Yip Kingston
+    2. [17.03] B-PROP: Bootstrapped Pre-training with Representative Words Predic
+       cs.IR | 2021 | Ma Xinyu, Guo Jiafeng, Zhang Ruqing, Fan Yixing, Li Yingyan,
+    3. [16.86] Adversarial Training for Large Neural Language Models
+       cs.CL | 2020 | Liu Xiaodong, Cheng Hao, He Pengcheng, Chen Weizhu, Wang Yu,
+    4. [16.66] A BERT-based Hierarchical Classification Model with Applications i
+       cs.CL | 2025 | Liu Kun, Liu Tuozhen, Wang Feifei, Pan Rui
+    5. [16.34] ANDES at SemEval-2020 Task 12: A jointly-trained BERT multilingual
+       cs.CL | 2020 | Pérez Juan Manuel, Arango Aymé, Luque Franco
+
+  Векторний пошук (top-5):
+    1. [0.9357] Quantity vs. Quality: On Hyperparameter Optimization for Deep   Re
+       cs.LG | 2020 | Hertel Lars, Baldi Pierre, Gillen Daniel L.
+    2. [0.9331] On Training in Imagination
+       cs.LG | 2026 | Timor Nadav, Shwartz-Ziv Ravid, Goldblum Micah, LeCun Yann, 
+    3. [0.9322] Loaded DiCE: Trading off Bias and Variance in Any-Order Score Func
+       cs.LG | 2019 | Farquhar Gregory, Whiteson Shimon, Foerster Jakob
+    4. [0.9313] MetaBox-v2: A Unified Benchmark Platform for Meta-Black-Box Optimi
+       cs.LG | 2025 | Ma Zeyuan, Gong Yue-Jiao, Guo Hongshu, Qiu Wenjie, Ma Sijie,
+    5. [0.9307] Small Experiments, Cheaper Decisions: A Case Study in Staged Promo
+       cs.CL | 2026 | Polania Felipe Chavarro
+
+  Гібрид RRF, k=60 (top-5):
+    1. [0.01639] BERT-LSH: Reducing Absolute Compute For Attention
+       cs.CL | 2024 | Li Zezheng, Yip Kingston  <- позиції: bm25#1
+    2. [0.01639] Quantity vs. Quality: On Hyperparameter Optimization for Deep   Re
+       cs.LG | 2020 | Hertel Lars, Baldi Pierre, Gillen Daniel L.  <- позиції: vector#1
+    3. [0.01613] B-PROP: Bootstrapped Pre-training with Representative Words Predic
+       cs.IR | 2021 | Ma Xinyu, Guo Jiafeng, Zhang Ruqing, Fan Yixing, Li Yingyan,  <- позиції: bm25#2
+    4. [0.01613] On Training in Imagination
+       cs.LG | 2026 | Timor Nadav, Shwartz-Ziv Ravid, Goldblum Micah, LeCun Yann,   <- позиції: vector#2
+    5. [0.01587] Adversarial Training for Large Neural Language Models
+       cs.CL | 2020 | Liu Xiaodong, Cheng Hao, He Pengcheng, Chen Weizhu, Wang Yu,  <- позиції: bm25#3
+
+  Документів, знайдених обома методами в межах top-10: 0
+  Перетини top-5: BM25 ∩ vector = 0, hybrid ∩ BM25 = 3, hybrid ∩ vector = 2
+  Унікальних для гібриду документів у top-5 немає.
+
+==============================================================================
+Запит (ім'я автора): "Yann LeCun convolutional networks"
+==============================================================================
+
+  BM25 (top-5):
+    1. [24.13] Introduction to Latent Variable Energy-Based Models: A Path Toward
+       cs.LG | 2023 | Dawid Anna, LeCun Yann
+    2. [10.50] Characterizing Types of Convolution in Deep Convolutional Recurren
+       cs.LG | 2017 | Huang Che-Wei, Narayanan Shrikanth. S.
+    3. [9.89] Graph Convolutional Networks: analysis, improvements and results
+       cs.LG | 2019 | Ullah Ihsan, Manzo Mario, Shah Mitul, Madden Michael
+    4. [9.67] Structural Compression of Convolutional Neural Networks
+       cs.CV | 2017 | Abbasi-Asl Reza, Yu Bin
+    5. [9.62] From Interpretable Filters to Predictions of Convolutional Neural 
+       cs.LG | 2022 | Henna Shagufta, Alcaraz Juan Miguel Lopez
+
+  Векторний пошук (top-5):
+    1. [0.9472] Deep Learning: From Basics to Building Deep Neural Networks with P
+       cs.LG | 2022 | Vazan Milad
+    2. [0.9416] PRKAN: Parameter-Reduced Kolmogorov-Arnold Networks
+       cs.LG | 2025 | Ta Hoang-Thang, Thai Duy-Quy, Tran Anh, Sidorov Grigori, Gel
+    3. [0.9396] Comparison between layer-to-layer network training and conventiona
+       cs.CV | 2023 | Bhyravabhottla Kiran Kumar Ashish, Lee WonSook
+    4. [0.9378] DiracNets: Training Very Deep Neural Networks Without Skip-Connect
+       cs.CV | 2017 | Zagoruyko Sergey, Komodakis Nikos
+    5. [0.9374] Deep Residual Networks with Exponential Linear Unit
+       cs.CV | 2016 | Shah Anish, Kadam Eashan, Shah Hena, Shinde Sameer, Shingade
+
+  Гібрид RRF, k=60 (top-5):
+    1. [0.03016] Comparison between layer-to-layer network training and conventiona
+       cs.CV | 2023 | Bhyravabhottla Kiran Kumar Ashish, Lee WonSook  <- позиції: bm25#10, vector#3
+    2. [0.01639] Introduction to Latent Variable Energy-Based Models: A Path Toward
+       cs.LG | 2023 | Dawid Anna, LeCun Yann  <- позиції: bm25#1
+    3. [0.01639] Deep Learning: From Basics to Building Deep Neural Networks with P
+       cs.LG | 2022 | Vazan Milad  <- позиції: vector#1
+    4. [0.01613] Characterizing Types of Convolution in Deep Convolutional Recurren
+       cs.LG | 2017 | Huang Che-Wei, Narayanan Shrikanth. S.  <- позиції: bm25#2
+    5. [0.01613] PRKAN: Parameter-Reduced Kolmogorov-Arnold Networks
+       cs.LG | 2025 | Ta Hoang-Thang, Thai Duy-Quy, Tran Anh, Sidorov Grigori, Gel  <- позиції: vector#2
+
+  Документів, знайдених обома методами в межах top-10: 1
+  Перетини top-5: BM25 ∩ vector = 0, hybrid ∩ BM25 = 2, hybrid ∩ vector = 3
+  Унікальних для гібриду документів у top-5 немає.
+
+==============================================================================
+Запит (перефразування без термінів): "making computers understand human emotions from text"
+==============================================================================
+
+  BM25 (top-5):
+    1. [18.36] Facial Expression Classification using Fusion of Deep Neural Netwo
+       cs.CV | 2022 | Phan Kim Ngan, Nguyen Hong-Hai, Huynh Van-Thong, Kim Soo-Hyu
+    2. [18.04] A Portrait of Emotion: Empowering Self-Expression through AI-Gener
+       cs.AI | 2023 | Lee Yoon Kyung, Park Yong-Ha, Hahn Sowon
+    3. [16.07] Measuring Cultural Relativity of Emotional Valence and Arousal usi
+       cs.CL | 2013 | Bann Eugene Yuta, Bryson Joanna J.
+    4. [15.68] Towards Interpretable and Transferable Speech Emotion Recognition:
+       eess.AS | 2021 | Das Sneha, Lønfeldt Nicole Nadine, Pagsberg Anne Katrine, Cl
+    5. [14.78] A Sentiment-and-Semantics-Based Approach for Emotion Detection in 
+       cs.CL | 2017 | Gupta Umang, Chatterjee Ankush, Srikanth Radhakrishnan, Agra
+
+  Векторний пошук (top-5):
+    1. [0.9523] A Sentiment-and-Semantics-Based Approach for Emotion Detection in 
+       cs.CL | 2017 | Gupta Umang, Chatterjee Ankush, Srikanth Radhakrishnan, Agra
+    2. [0.9424] Rule-based Emotion Detection on Social Media: Putting Tweets on   
+       cs.CL | 2014 | Tromp Erik, Pechenizkiy Mykola
+    3. [0.9367] Quantifying the Affective Gap: A Zero-Shot Evaluation of LLMs on F
+       cs.CL | 2026 | Obiuwevwi Lawrence, Rechowicz Krzysztof J., Johnson Jessica 
+    4. [0.9304] Evaluating the Capabilities of Large Language Models for Multi-lab
+       cs.CL | 2024 | Belay Tadesse Destaw, Azime Israel Abebe, Ayele Abinew Ali, 
+    5. [0.9249] AIMA at SemEval-2024 Task 10: History-Based Emotion Recognition in
+       cs.CL | 2025 | Abootorabi Mohammad Mahdi, Ghazizadeh Nona, Dalili Seyed Ars
+
+  Гібрид RRF, k=60 (top-5):
+    1. [0.03178] A Sentiment-and-Semantics-Based Approach for Emotion Detection in 
+       cs.CL | 2017 | Gupta Umang, Chatterjee Ankush, Srikanth Radhakrishnan, Agra  <- позиції: bm25#5, vector#1
+    2. [0.03102] Measuring Cultural Relativity of Emotional Valence and Arousal usi
+       cs.CL | 2013 | Bann Eugene Yuta, Bryson Joanna J.  <- позиції: bm25#3, vector#6
+    3. [0.03083] Rule-based Emotion Detection on Social Media: Putting Tweets on   
+       cs.CL | 2014 | Tromp Erik, Pechenizkiy Mykola  <- позиції: bm25#8, vector#2
+    4. [0.01639] Facial Expression Classification using Fusion of Deep Neural Netwo
+       cs.CV | 2022 | Phan Kim Ngan, Nguyen Hong-Hai, Huynh Van-Thong, Kim Soo-Hyu  <- позиції: bm25#1
+    5. [0.01613] A Portrait of Emotion: Empowering Self-Expression through AI-Gener
+       cs.AI | 2023 | Lee Yoon Kyung, Park Yong-Ha, Hahn Sowon  <- позиції: bm25#2
+
+  Документів, знайдених обома методами в межах top-10: 3
+  Перетини top-5: BM25 ∩ vector = 1, hybrid ∩ BM25 = 4, hybrid ∩ vector = 2
+  Унікальних для гібриду документів у top-5 немає.
+
+==============================================================================
+Вплив параметра k у RRF
+==============================================================================
+Запит (перефразування без термінів): "making computers understand human emotions from text"
+Документів, які знайшли ОБА методи (у межах top-10): 3
+
+  k=1:
+    1. [0.66667] (обидва: bm25#5, vector#1) A Sentiment-and-Semantics-Based Approach for E
+    2. [0.50000] (один: bm25#1) Facial Expression Classification using Fusion 
+    3. [0.44444] (обидва: bm25#8, vector#2) Rule-based Emotion Detection on Social Media: 
+    4. [0.39286] (обидва: bm25#3, vector#6) Measuring Cultural Relativity of Emotional Val
+    5. [0.33333] (один: bm25#2) A Portrait of Emotion: Empowering Self-Express
+
+  k=10:
+    1. [0.15758] (обидва: bm25#5, vector#1) A Sentiment-and-Semantics-Based Approach for E
+    2. [0.13942] (обидва: bm25#3, vector#6) Measuring Cultural Relativity of Emotional Val
+    3. [0.13889] (обидва: bm25#8, vector#2) Rule-based Emotion Detection on Social Media: 
+    4. [0.09091] (один: bm25#1) Facial Expression Classification using Fusion 
+    5. [0.08333] (один: bm25#2) A Portrait of Emotion: Empowering Self-Express
+
+  k=60:
+    1. [0.03178] (обидва: bm25#5, vector#1) A Sentiment-and-Semantics-Based Approach for E
+    2. [0.03102] (обидва: bm25#3, vector#6) Measuring Cultural Relativity of Emotional Val
+    3. [0.03083] (обидва: bm25#8, vector#2) Rule-based Emotion Detection on Social Media: 
+    4. [0.01639] (один: bm25#1) Facial Expression Classification using Fusion 
+    5. [0.01613] (один: bm25#2) A Portrait of Emotion: Empowering Self-Express
+
+  k=1000:
+    1. [0.00199] (обидва: bm25#5, vector#1) A Sentiment-and-Semantics-Based Approach for E
+    2. [0.00199] (обидва: bm25#3, vector#6) Measuring Cultural Relativity of Emotional Val
+    3. [0.00199] (обидва: bm25#8, vector#2) Rule-based Emotion Detection on Social Media: 
+    4. [0.00100] (один: bm25#1) Facial Expression Classification using Fusion 
+    5. [0.00100] (один: bm25#2) A Portrait of Emotion: Empowering Self-Express
+
+  За малого k перша позиція одного списку майже недосяжна: 1/(1+1)=0.5 проти
+  1/(1+3)+1/(1+2)=0.58 -- тобто перевагу отримує той, хто просто був №1 десь.
+  За великого k різниця між сусідніми ранками стирається (1/(60+1) ~ 1/(60+3)),
+  і вирішальним стає те, чи знайшли документ ОБА методи, а не на якій позиції.
+  Саме тому k=60 (значення з оригінальної статті Cormack et al.) на практиці
+  працює як 'консенсусний' режим, а k=1 -- як 'почергова видача лідерів'.
+
+==============================================================================
+Чому запит за іменем автора провалюється в обох методах
+==============================================================================
+Запит: "Yann LeCun convolutional networks"
+Статей, де 'LeCun' зустрічається в title+abstract: 1
+Статей, де 'LeCun' є серед авторів:                35
+І BM25, і векторний індекс побудовані на title+abstract, тому поле authors
+для пошуку просто не існує. Перевірка: додаємо authors у BM25-корпус.
+
+
+  BM25 по title+abstract:
+    1. [24.13] Introduction to Latent Variable Energy-Based Models: A Path Toward
+       cs.LG | 2023 | Dawid Anna, LeCun Yann
+    2. [10.50] Characterizing Types of Convolution in Deep Convolutional Recurren
+       cs.LG | 2017 | Huang Che-Wei, Narayanan Shrikanth. S.
+    3. [9.89] Graph Convolutional Networks: analysis, improvements and results
+       cs.LG | 2019 | Ullah Ihsan, Manzo Mario, Shah Mitul, Madden Michael
+    4. [9.67] Structural Compression of Convolutional Neural Networks
+       cs.CV | 2017 | Abbasi-Asl Reza, Yu Bin
+    5. [9.62] From Interpretable Filters to Predictions of Convolutional Neural 
+       cs.LG | 2022 | Henna Shagufta, Alcaraz Juan Miguel Lopez
+
+  BM25 по title+abstract+authors:
+    1. [21.14] Deep Convolutional Networks on Graph-Structured Data
+       cs.LG | 2015 | Henaff Mikael, Bruna Joan, LeCun Yann
+    2. [20.40] Efficient Object Localization Using Convolutional Networks
+       cs.CV | 2014 | Tompson Jonathan, Goroshin Ross, Jain Arjun, LeCun Yann, Bre
+    3. [20.11] OverFeat: Integrated Recognition, Localization and Detection using
+       cs.CV | 2013 | Sermanet Pierre, Eigen David, Zhang Xiang, Mathieu Michael, 
+    4. [18.85] Introduction to Latent Variable Energy-Based Models: A Path Toward
+       cs.LG | 2023 | Dawid Anna, LeCun Yann
+    5. [17.28] A Closer Look at Spatiotemporal Convolutions for Action Recognitio
+       cs.CV | 2017 | Tran Du, Wang Heng, Torresani Lorenzo, Ray Jamie, LeCun Yann
+
+  Статей саме LeCun у top-5: без authors -- 1, з authors -- 5
+
+==============================================================================
+Підсумок: 3 запити x 3 методи (top-1 кожного методу)
+==============================================================================
+
+[точний термін] "BERT fine-tuning"
+  BM25  : BERT-LSH: Reducing Absolute Compute For Attention
+  Vector: Quantity vs. Quality: On Hyperparameter Optimization for Deep   Reinforc
+  Hybrid: BERT-LSH: Reducing Absolute Compute For Attention
+
+[ім'я автора] "Yann LeCun convolutional networks"
+  BM25  : Introduction to Latent Variable Energy-Based Models: A Path Towards   Au
+  Vector: Deep Learning: From Basics to Building Deep Neural Networks with Python
+  Hybrid: Comparison between layer-to-layer network training and conventional   ne
+
+[перефразування без термінів] "making computers understand human emotions from text"
+  BM25  : Facial Expression Classification using Fusion of Deep Neural Network in 
+  Vector: A Sentiment-and-Semantics-Based Approach for Emotion Detection in   Text
+  Hybrid: A Sentiment-and-Semantics-Based Approach for Emotion Detection in   Text
